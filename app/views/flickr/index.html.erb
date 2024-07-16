@@ -1,0 +1,22 @@
+<h1>Flickr Public Photos</h1>
+<%= form_tag flickr_photos_path, method: :get do%>
+  <%= label_tag :user_id, "Enter User ID" %>
+  <%= text_field_tag :user_id %>
+  <%= submit_tag "Get Photos" %>
+<% end %>
+
+
+<% if @photos %>
+<br>
+  <div class="photos">
+    <% @photos.each do |photo| %>
+      <% farm = photo['farm'] %>
+      <% server = photo['server'] %>
+      <% id = photo['id'] %>
+      <% secret = photo['secret'] %>
+      <% image_url = "https://farm#{farm}.staticflickr.com/#{server}/#{id}_#{secret}_m.jpg" %>
+
+      <%= image_tag image_url, alt: photo['title'] %>
+    <% end %>
+  </div>
+<% end %>
